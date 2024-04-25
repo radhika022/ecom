@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS_assisment</title>
+  <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <style>
+    body{
+      justify-content: center;
+      align-items: center;
+    }
+    </style>
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="form-wrapper">
+      
+  <form id="login_form" enctype="multipart/form-data">
+    <p>
+      Email
+      <input type="email" name="email" placeholder="ie. a@b.c"  required/>
+    </p>
+    <p>
+      Password
+      <input type="password" name="password"  required/>
+    </p>
+    <p>
+      New user?, <a href="/register">Register here</a>
+    </p>
+    <p>
+      <input type="submit" class="signin round focused-v2" value="Sign in" />
+    </p>
+  </form>
+      <p id="info"></p>
+
+    </div>
+</body>
+
+</html>

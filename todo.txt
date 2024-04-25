@@ -1,0 +1,268 @@
+--------------------------------------------MODEL VIEW CONTROL---------------------------------------------------
+--------------------------------------------Views--------------------------------------------------------------
+Home Page: /homepage
+  Desc:
+  Conditions: must be a valid user
+  Elements:
+    -g gmail(id)
+    -p password
+    -s signin_btn
+    -r registration_btn
+    -f forgot-password_btn
+  Actions:
+    signin_btn
+      -> POST /id/password
+      ->
+         IF Products in cart > 0: Cart page
+         ELSE: Product page
+
+    new-account_btn
+      -> New Account page
+  UI:
+  --------------
+    ggggg
+    ppppp
+    ff
+    ss rr
+  --------------
+
+New Account page: /create_account
+  Desc:
+  Conditions: must have email,
+  Elements:
+    -n user-name
+    -g gmail(id)
+    -p password
+    -s signin_btn
+    -r registration_btn
+
+  Actions:
+    registration_btn
+      -> POST /id/name/password
+      -> send email
+      -> show status
+
+    signin_btn
+     -> Home page
+  UI:
+  --------------
+    nnnnn
+    ggggg
+    ppppp
+    ss rr
+  --------------
+
+Products page: /
+  Desc:
+
+
+  Conditions: must login
+  SHOW:
+    => PRODUCT:
+
+
+  Element:
+    -h [Header]
+    -l load-more-products
+  UI:
+
+Cart page: /cart
+  Desc:
+  [Header]
+    PRODUCT: product-image, product-name, quantity +/-,
+
+Add Product page: /add_product
+  Desc:
+  [Header]
+--------------------------------------------Sections--------------------------------------------------------------
+
+Product: []
+  Desc: show product details
+  Condtions:
+  Elements:
+      -i product-image
+      -n product-name
+      -a add-cart_btn
+      -v view-details-btn
+  UI:
+  --------------
+    iiiii
+    iiiii
+    iiiii
+     nnn
+    aa vv
+  --------------
+
+Cart: [Product]
+  Desc: show product details
+  Condtions:
+  Elements:
+    -q quantity
+
+  UI:
+  --------------
+    mmmmm
+    mmmmm
+    mmmmm
+    qq -+
+     nnn
+    aa vv
+  --------------
+
+Header: []
+  Desc: include this as section in other pages at top
+  Conditoins:
+  Elements:
+    -n user-name
+    -p product_btn
+    -a add-product_btn
+    -c cart_btn
+    -u [Notification]
+    -m change-password_btn
+    -l logout_btn
+
+
+    CHANGE-PASSWORD: send-email -> reset-password_page -> mail -> [changed successfully]
+
+
+  UI:
+      Product page:
+        Customer:
+          n     c ml
+           uuuuuuuu
+
+        Admin:
+          n   a c ml
+           uuuuuuuu
+
+      Cart page:
+        Customer:
+          n p     ml
+           uuuuuuuu
+
+        Admin:
+          n p a   ml
+           uuuuuuuu
+
+      Add Product page:
+        Admin:
+          n p   c ml
+           uuuuuuuu
+
+Notification: []
+
+
+---------------------------------------------------Models-------------------------------------------------------
+User: {}
+  Desc:
+  Remarks:
+    - init empty user
+  Props:
+    - name
+    - email
+    - password
+    - role:
+      | Customer
+      | Admin
+    - cart: *{Product}
+  Loc:
+    - Collection Users
+
+
+Product: {}
+  Desc:
+  Remarks:
+    - init empty product
+  Props:
+    - image
+    - name
+    - price
+    - desc
+    - stock
+ Loc:
+    - Collection Products
+
+Cart item: {Product}
+  Desc:
+  Remarks:
+    - init empty cart
+  Props:
+    - quantity
+  Loc:
+    - Collection Cart
+-------------------------------------------------Controls/EndPoints--------------------------------------------
+Register User: <>
+  URL: /user
+  METHOD: POST
+  PARAMS:
+  QUERY:
+  BODY:{User}
+  Side Effect:
+    -> create user
+    -> (validate user create)
+    -> Home page
+
+SignIn User: <>
+  URL: /user
+  METHOD: POST
+  BODY:
+    -email
+    -password
+  Side Effect:
+    -> (validate user signin)
+    ->
+      IF valid user: Product page
+      ELSE: [Notification]
+
+Logout User: <>
+  URL: /user
+  METHOD: DELETE
+  BODY: {User}
+  Side Effect:
+    -> (validate user signin)
+    -> delete user
+    -> Home page
+
+Add Product: <>
+  URL: /product
+  METHOD: POST
+  BODY: {Product}
+  Side Effect:
+    -> (validate product add)
+    -> add product
+  
+
+
+Modify Product: <>
+  URL: /product
+  METHOD: POST
+  BODY: {Product}
+
+Delete Product: <>
+  URL: /product
+  Method: DELETE
+Product List: <>
+
+Cart List: <>
+
+Load More: <>
+  fetch 5 more
+
+  URL: /add_product
+  METHOD: POST
+  BODY:{Product}
+
+
+ Product: <>
+  URL: /add_product
+  METHOD: POST
+  BODY:{Product}
+
+------------------------------------------Functions/Mixins/Injection----------------------------------------------
+Validate email: ()
+  Input: text
+  Range: 4..20
+  Contains: @ .
+
+
+

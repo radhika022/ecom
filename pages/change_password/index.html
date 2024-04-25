@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>JS_assisment</title>
+    <!-- <link href="style.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <style>
+      body {
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <script src="script.js" defer></script>
+  </head>
+
+  <body>
+    <header id="header_area" class="header-wrapper">
+      <script src="/static/scripts/header.js" type="module"></script>
+    </header>
+    <main>
+      <div class="form-wrapper">
+        <form id="pass_form" enctype="multipart/form-data">
+          <p>
+            Old Password
+            <input type="password" name="old_password" required />
+          </p>
+
+          <p>
+            New Password
+            <input type="password" name="new_password" required />
+          </p>
+
+          <p>
+            Confirm Password
+            <input type="password" name="new_password2" required />
+          </p>
+          <p>
+            <input
+              type="submit"
+              class="signin round focused-v2"
+              value="Sign in"
+            />
+          </p>
+        </form>
+        <p id="info"></p>
+      </div>
+    </main>
+  </body>
+</html>
